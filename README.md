@@ -1,6 +1,5 @@
 # Bleed Project In BDFD
-A New Project Of My Bleed Series. 
-Any other inquiries, you can contact me through my discord. 
+My New BDFD Project, Called "Bleed" Similarly to the bleed discord bot. This project is the new version of "BleedBDFD", You can check the project on my profile.
 
 ### Future Projects & Suggest Here&nbsp;&nbsp;&nbsp;[![](https://dcbadge.vercel.app/api/server/dVTQPBtzgs)](https://discord.com/invite/dVTQPBtzgs)
 
