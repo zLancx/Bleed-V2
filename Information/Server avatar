@@ -1,0 +1,20 @@
+Prefix: only the prefix! 
+$nomention
+$if[$or[$toLowercase[$message[1]]==serveravatar;$toLowercase[$message[1]]==sav]==true]
+$var[color;#faa61a]
+$if[$userServerAvatar[$authorID]==$userAvatar[$authorID]]
+$description[<:warning:1206923875896795167> <@$authorID>: You don’t have a server avatar set]
+$color[$var[color]]
+$elseif[$userServerAvatar[$findUser[$message[2];yes]]==$userAvatar[$findUser[$message[2];yes]]]
+$description[<:warning:1206923875896795167> <@$authorID>: <@$mentioned[1]> doesn’t have a server avatar set]
+$color[$var[color]]
+$else
+$nomention
+$image[$userServerAvatar[$findUser[$message[2];yes]]?size=4096]
+$title[$username[$findUser[$message[2];yes]]’s server avatar] 
+$embeddedURL[$userServerAvatar[$replaceText[$replaceText[*$mentioned[<]*;**;$authorID;1];*$mentioned[<]*;$mentioned[<];1]]?size=4096]
+$authorIcon[$authorAvatar]
+$author[$username[$authorID]]
+$endif
+$endif
+$endif
