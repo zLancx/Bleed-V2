@@ -1,5 +1,4 @@
-# Bleed-V2
-A New Project Of My BDFD Series.
+# Bleed Project In BDFD
+A New Project Of My Bleed Series. 
+Any other inquiries, you can contact me through my discord. 
 
-# The New Era
-Welcome This Project Back! Better and more. 
