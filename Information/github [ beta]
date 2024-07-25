@@ -1,0 +1,79 @@
+$nomention
+$onlyIf[$guildID!=;]
+$allowMention
+$allowRoleMentions[]
+$allowUserMentions[]
+$suppressErrors 
+
+
+
+$if[$getCooldown[normal]>=1]
+$description[<:cooldown:1200079809301192806> <@$authorID>: Please wait $trimSpace[$if[$getCooldown[normal]==1]**1 Second** $else **$getCooldown[normal] Seconds**$endif] before using this command again]
+$color[#50c8ef]
+$deleteIn[4s]
+ 
+$else
+$cooldown[4s;]
+
+
+
+
+$if[$message[1]==]
+$author[$username[$authorID]] 
+$authorIcon[$authorAvatar] 
+$title[Command: github] 
+$description[Get a Github profile
+```js
+Syntax: ,github <username>
+Example: ,github dtbrexy```] 
+$else
+
+
+
+
+
+$var[hold;$url[encode;$message]] 
+
+
+$botTyping
+$httpGet[https://api.popcat.xyz/github/$var[hold]]
+$if[$httpResult==error code: 502] 
+$description[<:warning:1200080333824065687> <@$authorID>: **API** - returned a **502**. Try again later.]
+$color[#faa61a]
+$else
+$if[$httpResult==error code: 1033] 
+$description[<:warning:1200080333824065687> <@$authorID>: **API** - returned a **1033**. Try again later.]
+$color[#faa61a] 
+$else
+$if[$httpResult[error]==User not found]
+User not found.
+$else
+
+
+
+
+
+
+$botTyping
+$title[$httpResult[name]]
+$embeddedURL[$httpResult[url]]
+$author[$username[$authorID]]
+$authorIcon[$authorAvatar]
+$thumbnail[$httpResult[avatar]]
+$color[#2b3137]
+$try
+$description[$trimSpace[$if[$httpResult[bio]==No Bio]N/A $else $httpResult[bio] $endif]] 
+$endtry
+$try
+$addField[Followers;$httpResult[followers]] 
+$endtry
+$try
+$addField[Following;$httpResult[following]] 
+$endtry
+$try
+$addField[Public repositories;$httpResult[public_repos]] 
+$endtry
+$endif
+$endif
+$endif
+$endif
