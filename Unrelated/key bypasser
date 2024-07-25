@@ -1,1 +1,40 @@
+$nomention 
+$suppressErrors
+$if[$message[1]==]
+Send a message. 
+$else
 
+
+
+$var[wow;$checkContains[$message;https://]] 
+
+$if[$var[wow]==false] 
+$description[<:warning:1254138190986743919> <@$authorID>: Invalid **URL or domain** - didn't pass validation] 
+$color[#faa61a] 
+$else
+
+
+
+$botTyping
+$httpGet[http://45.90.13.151:6132/api/bypass?link=$message&api_key=neyoshidzqua]
+$if[$httpResult[success]==false]
+$description[<:warning:1254138190986743919> <@$authorID>: **Invalid** supported format **provided.** or **error** has **occurred.** - Try again later. ] 
+$color[#faa61a]
+$else
+$botTyping
+$if[$httpResult[success]==true]
+$deletecommand
+$author[Anti Skidders Unit | 2024] 
+$authorIcon[$serverIcon]
+$title[<a:Greencheckmark:1246161513299837078> Key Success]
+$description[```xml
+$message```]
+$addField[💻 Result (PC); ```$httpResult[key]```]
+$addField[📱 Result (MOBILE);$httpResult[key]]
+$footer[⏰ Took $httpResult[duration] - Powered By Shouko API.] 
+$thumbnail[$authorAvatar]
+$color[a5eb78]
+$addButton[no;https://discord.com/invite/RScYM5TbDP;Support Server;link]
+$endif
+$endif
+$endif
