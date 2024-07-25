@@ -1,0 +1,46 @@
+$nomention
+$if[$getCooldown[normal]>=1]
+$description[<:cooldown:1200079809301192806> <@$authorID>: Please wait $trimSpace[$if[$getCooldown[normal]==1]**1 Second** $else **$getCooldown[normal] Seconds**$endif] before using this command again]
+$color[#50c8ef]
+$deleteIn[4s]
+ 
+$else
+$cooldown[4s;]
+$if[$message[1]==]
+$authorIcon[$userAvatar[$botID]]
+$author[thrive]
+$title[>_]
+$description[Returns information about the subreddit name given
+```
+Syntax: ,subreddit <title>
+Example: ,subreddit memes
+```]
+$else
+$botTyping
+$botTyping
+$httpGet[https://api.popcat.xyz/subreddit/$message]
+$if[$httpResult==error code: 524]
+$description[<:warning:1200080333824065687> <@$authorID>: **API** - returned a **504**. Try again later.]
+$color[#faa61a]
+$else
+$embeddedURL[$httpResult[url]]
+$author[$nickname]
+$authorIcon[$authorAvatar]
+$color[#ff5700]
+$footer[Subreddit]
+$footerIcon[http://i.imgur.com/HbUa6WQ.png]
+$try
+$image[$httpResult[banner]]
+$endtry
+$try
+$thumbnail[$httpResult[icon]]
+$endtry
+$title[$httpResult[title]]
+$try
+$description[$httpResult[description]]
+$endtry
+$addField[**Users**;`$httpResult[members]` subscribers (`$httpResult[active_users]`);yes]
+$addField[**NSFW**;$trimSpace[$if[$httpResult[over_18]==false]No $else Yes$endif];yes]
+$endif
+$endif
+$endif
