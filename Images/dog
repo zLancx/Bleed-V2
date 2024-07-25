@@ -1,0 +1,3 @@
+$nomention
+$httpGet[https://dog.ceo/api/breeds/image/random]
+$image[$httpResult[message]]
