@@ -1,0 +1,17 @@
+$nomention
+$onlyIf[$guildID!=;]
+$reply
+$botTyping
+$httpGet[https://api.kastg.xyz/api/ai/llamaV3?prompt=$url[encode;$message]]
+$if[$httpResult[status]==false]
+$description[<:deny:1251520137404874823> <@$authorID>: **Prompt Query** Is Missing. Or There Is Something **Wrong.** Try Again Later. ]
+ $color[#D95259]
+$else
+$if[$httpResult[status]==true]
+$try 
+$httpResult[result;0;response]
+$catch
+There is something wrong with the api. Try again later. 
+$endtry 
+$endif
+$endif
