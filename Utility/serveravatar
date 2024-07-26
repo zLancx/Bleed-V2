@@ -1,0 +1,47 @@
+$nomention
+$onlyIf[$guildID!=;]
+$suppressErrors 
+
+$if[$message[1]==]
+
+
+$if[$userServerAvatar[$authorID]==$userAvatar[$authorID]]
+$description[<:warning:1254138190986743919> <@$authorID>: You don’t have a server avatar set]
+$color[#faa61a]
+
+
+$else 
+$image[$userServerAvatar[$authorID]?size=4096]
+$title[$username[$authorID]’s server avatar] 
+$embeddedURL[$userServerAvatar[$authorID]?size=4096]
+$authorIcon[$authorAvatar]
+$author[$username[$authorID]]
+$endif 
+$else
+
+$var[user;$findUser[$replaceText[$message;$message[1] ;;1];no]]
+
+
+$if[$userExists[$var[user]]==false]
+user doesn’t exists
+
+$else 
+
+
+
+$if[$userServerAvatar[$var[user]]==$userAvatar[$var[user]]]
+$description[<:warning:1254138190986743919> <@$authorID>: <@$var[user]> doesn’t have a server avatar set]
+$color[#faa61a]
+
+
+
+$else
+$image[$userServerAvatar[$var[user]]?size=4096]
+$title[$username[$var[user]]’s server avatar] 
+$embeddedURL[$userServerAvatar[$var[user]]?size=4096]
+$authorIcon[$authorAvatar]
+$author[$username[$authorID]]
+$endif
+$endif
+$endif
+$endif
