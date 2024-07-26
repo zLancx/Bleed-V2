@@ -1,0 +1,32 @@
+$nomention
+$if[$toLowercase[$message[1]]==banner]
+$if[$message[2]==]
+
+$if[$userBanner[$authorID]==]
+u have no banner
+
+$else
+
+$image[$userBanner[$authorID]?size=1024]
+$endif
+
+$else
+
+$var[user;$findUser[$replaceText[$message;$message[1] ;;1];no]]
+
+$if[$userExists[$var[user]]==false]
+user doesn’t exists
+
+$else
+
+$if[$userBanner[$var[user]]==]
+user doesn’t have banner
+
+$else
+
+$image[$userBanner[$var[user]]?size=1024]
+$endif
+$endif
+$endif
+$endif
+ 
