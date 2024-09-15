@@ -1,0 +1,80 @@
+checkers aren't completed you might find bugs and shit
+
+$nomention
+$onlyIf[$guildID!=;]
+$suppressErrors 
+$allowUserMentions[]
+
+
+$if[$getCooldown[normal]>=1]
+$description[$getVar[c] <@$authorID>: Please wait $trimSpace[$if[$getCooldown[normal]==1]**1 Second** $else **$getCooldown[normal] Seconds**$endif] before using this command again]
+$color[#50c8ef]
+$deleteIn[4s]
+ 
+$else
+$cooldown[4s;]
+
+
+$var[warn;$getVar[w]] 
+$if[$checkUserPerms[$authorID;managemessages]==false]
+$description[$var[warn] <@$authorID>: You're **missing** permission: `manage_messages`]
+$color[#faa61a]
+$else
+$if[$checkUserPerms[$botID;managemessages]==false]
+$description[$var[warn] <@$authorID>: Im **missing** permission: `manage_messages`]
+$color[#faa61a]
+$else
+
+
+$if[$repliedMessageID!=]
+$var[hold;$trimSpace[$getMessage[$channelID;$repliedMessageID;content]]] 
+$var[1;$divide[100000;2]]
+ 
+$try 
+$async[a]
+$removeContains[$var[hold];$var[1]]
+$endasync
+$await[a]
+
+
+$async[b]
+$removeContains[$var[hold];$var[1]]
+$endasync
+$catch
+$description[$var[w] <@$authorID>: could not delete **$var[hold]** match.]
+$color[#faa61a]
+$deleteIn[5s] 
+$endtry  
+$else
+
+
+
+$if[$message[1]==]
+$sendEmbedMessage[$channelID;;Command purge match;;deletes messages containing the given substring
+```Syntax: ,purge match <substring>
+Example: ,purge match loser``` ;;$nickname[$authorID];$userServerAvatar[$authorID]]  
+$else
+$var[1;$divide[100000;2]]
+ 
+$try 
+$async[a]
+$removeContains[$message;$var[1]]
+$endasync
+$await[a]
+
+
+$async[b]
+$removeContains[$message;$var[1]]
+$endasync
+$catch
+$description[$var[w] <@$authorID>: could not delete **$message** match.]
+$color[#faa61a]
+$deleteIn[5s]
+$endtry  
+$endif
+$endif
+$endif
+$endif
+$endif
+
+
