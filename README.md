@@ -1,7 +1,8 @@
 # Bleed Project In BDFD
-Revamped version of my bleed project, check out the previous one [Link](https://github.com/zLancx/BleedBDFD) ts is also unfinished, some of the unreleased codes is in my server
+Commands related to bleed but made in bdfd. This is the revamped version of my old bdfd [project](https://github.com/zLancx/bleedbdfd)
 
-### Cord:&nbsp;&nbsp;&nbsp;[![](https://dcbadge.vercel.app/api/server/kXN4e4UAS7)](https://discord.com/invite/kXN4e4UAS7)
+
+### Cord:&nbsp;&nbsp;&nbsp;[![](https://dcbadge.vercel.app/api/server/a5DuJ6EEaQ)](https://discord.gg/a5DuJ6EEaQ)
 
 
  
