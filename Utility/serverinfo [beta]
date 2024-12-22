@@ -1,0 +1,126 @@
+$nomention 
+$onlyIf[$guildID!=;] 
+$suppressErrors
+
+
+$if[$getCooldown[normal]>=1]
+$description[:cooldown: <@$authorID>: Please wait $trimSpace[$if[$getCooldown[normal]==1]**1 Second** $else **$getCooldown[normal] Seconds**$endif] before using this command again]
+$color[#50c8ef]
+$deleteIn[4s]
+ 
+$else
+$cooldown[4s;]
+
+$if[$checkContains[$message;/]==true]
+$textSplit[$message;/]
+$var[code;$splitText[>]]
+$elseif[$message==] 
+$var[code;$guildID]
+$else
+$var[code;$message]
+$endif
+
+
+$if[$isNumber[$var[code]]==false] 
+$description[<:warning:1254138190986743919> <@$authorID>: Please provide a **valid snowflake ID**] 
+$color[#faa61a] 
+$else
+$if[$guildExists[$var[code]]==false] 
+$description[<:warning:1254138190986743919> <@$authorID>: This **snowflake ID** is **invalid** or I'm not in this **server.**] 
+$color[#faa61a] 
+$else  
+
+
+$httpAddHeader[apikey;$getVar[bdfdapi]]
+$httpAddHeader[bot-token;$getVar[token]]
+$httpAddHeader[guild-id;$var[code]] 
+
+
+
+$httpGet[https://bdfddata.rickyjs.xyz/release/guild]
+$try
+$async[main] 
+$var[id;$httpResult[details;id]]
+$var[name;$httpResult[details;name]] 
+$var[owner;$httpResult[details;owner_id]]
+$var[pic;$httpResult[details;icon]]
+$var[bst;$httpResult[details;premium_subscription_count]]
+$var[verify_lvl;$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$httpResult[details;verification_level];0;None];1;Low];2;Medium];3;High];4;Very high]]
+$endasync
+$endtry
+
+
+$httpGet[https://bdfddata.rickyjs.xyz/release/guild/members?simple=true]
+$try
+$async[d]
+$var[total;$httpResult[details;count;total]] 
+$var[bots;$httpResult[details;count;bots]] 
+$var[users;$httpResult[details;count;users]]
+$endasync
+$endtry
+
+
+$await[main] 
+$await[d]
+$if[$var[bst]<2]
+$var[boostLevel;level 0]
+$elseif[$and[$var[bst]>=2;$var[bst]<7]==true]
+$var[boostLevel;level 1]
+$elseif[$and[$var[bst]>=7;$var[bst]<14]==true]
+$var[boostLevel;level 2]
+$elseif[$var[bst]>=14]
+$var[boostLevel;level 3]
+$endif
+
+
+$color[#708bb8] 
+
+
+
+
+
+
+$if[$message[1]==] 
+$thumbnail[$var[pic]] 
+$authorIcon[$authorAvatar]
+$author[$displayName[$authorID]] 
+$title[$var[name]]
+$description[Server created on <t:$calculate[($var[id] / 4194304 + 1420070400000) / 1000]:D> (<t:$calculate[($var[id] / 4194304 + 1420070400000) / 1000]:R>)]
+$try
+$addField[**Information**;**Owner:** $username[$var[owner]]
+**Verification:** $var[verify_lvl]
+**Nitro Boosts:** $var[bst] (`$var[boostLevel]`)]
+$endtry
+$try
+$addField[**Members**;**Total:** $var[total]
+**Humans:** $var[users]
+**Bots:** $var[bots]]
+$endtry
+$else
+$thumbnail[$var[pic]] 
+$authorIcon[$authorAvatar]
+$author[$displayName[$authorID]] 
+$title[$var[name]]
+$description[Server created on <t:$calculate[($var[id] / 4194304 + 1420070400000) / 1000]:D> (<t:$calculate[($var[id] / 4194304 + 1420070400000) / 1000]:R>)]
+$try
+$addField[**Information**;**Owner:** $username[$var[owner]]
+**Verification:** $var[verify_lvl]
+**Nitro Boosts:** $var[bst] (`$var[boostLevel]`)]
+$endtry
+$try
+$addField[**Members**;**Total:** $var[total]
+**Humans:** $var[users]
+**Bots:** $var[bots]]
+$endtry
+$endtry
+
+
+
+
+
+$endif
+$endif
+$endif
+$endif
+$endif
+$endif
